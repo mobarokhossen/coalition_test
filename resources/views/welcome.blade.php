@@ -1,91 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+     <head>
+          <meta charset="utf-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+          <title>Coalition Test</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+          <!-- Fonts -->
+          <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+          <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          <!-- Styles -->
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+     </head>
+     <body>
+          <div class="wrapper">
+               <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="{{URL::to('/')}}">Home</a></li>
+                            <li ><a href="{{URL::to('/product')}}">Product List</a></li>
+                    </div>
+               <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title marginbot-80">Add Product Information</h3>
+                            
+                        </div>
+                         <?php
+                                    $message = Session::get('message');
+                                    $exception = Session::get('exception');
+                                    if ($message) {
+                                        ?>
+                                <div class="alert alert-success">
+                                    <a href="#" class="close text-danger" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>
+                                    <?php
+                                        echo $message;
+                                    ?>
+                                    </strong>
+                                </div>
+                                    <?php
+                                        Session::put('message', '');
+                                    }
+                                    elseif ($exception) {
+                                        ?>
+                                <div  class="alert alert-danger">
+                                    <a href="#" class="close text-info" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>
+                                    <?php
+                                        echo $exception;
+                                    ?>
+                                    </strong>
+                                </div>
+                                    <?php
+                                        Session::put('exception', '');
+                                    }
+                                    ?>
+                            
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        {!! Form::open(array('url' => '/save-product' , 'method'=>'post')) !!}
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="product">Product Name</label>
+                                    <input type="text" required class="form-control" name="product_name" id="product" placeholder="Enter product name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantity_in_stock">Quantity In Stock</label>
+                                    <input type="number" required class="form-control" name="quantity_in_stock" id="quantity_in_stock" placeholder="Enter Quantity In Stock">
+                                </div>
+                                 <div class="form-group">
+                                    <label for="price_per_item">Price Per Item</label>
+                                    <input type="number" required class="form-control" name="price_per_item" id="price_per_item" placeholder="Enter Price Per Item">
+                                </div>
+                               
+                            </div>
 
-            .full-height {
-                height: 100vh;
-            }
+                            <!-- /.box-body -->
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                            <div class="box-footer">
+                                <input type="submit" class="btn btn-success btn-lg col-md-4" value="Save Product"/>
+<!--                                <button type="submit" class="btn btn-primary">Cancel</button>-->
+                            </div>
+                      {!! Form::close() !!} 
+                    </div>
                 </div>
             </div>
-        </div>
-    </body>
+                    </div>
+               </div>
+          </div>
+     </body>
 </html>
